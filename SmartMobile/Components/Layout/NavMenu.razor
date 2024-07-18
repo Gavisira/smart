@@ -1,0 +1,27 @@
+﻿<MudNavMenu>
+    @if (false) {
+        <MudNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home">Início</MudNavLink>
+    }
+    <MudNavLink Href="/Record" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.LockClock">Registro de Presença</MudNavLink>
+    <MudNavGroup Title="Cadastro" Expanded="false" Icon="@Icons.Material.Filled.PersonAdd">
+        <MudNavLink Href="/" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Person">Pedestre</MudNavLink>
+        <MudNavLink Href="/" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Hail">Visitante</MudNavLink>
+        <MudNavLink Href="/cadastro/usuario" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.AdminPanelSettings">Usuario</MudNavLink>
+    </MudNavGroup>
+    <MudNavGroup Title="Relatorios" Expanded="false" Icon="@Icons.Material.Filled.Description">
+        <MudNavLink Href="/" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Person">Acesso por pedestres</MudNavLink>
+        <MudNavLink Href="/" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Place">Ocupação</MudNavLink>
+        <MudNavLink Href="/" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Hail">Visitantes</MudNavLink>
+        <MudNavLink Href="/" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Computer">Equipamentos Conectados</MudNavLink>
+        <MudNavLink Href="/" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Check">Liberações Manuais</MudNavLink>
+    </MudNavGroup>
+    <MudNavGroup Title="Configurações" Expanded="false" Icon="@Icons.Material.Filled.Settings">
+        <MudNavLink Href="/" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Settings">Regras de Acesso</MudNavLink>
+        <MudNavLink Href="/" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Settings">Configurações Gerais</MudNavLink>
+    </MudNavGroup>
+    <MudNavGroup Title="Ajuda" Expanded="false" Icon="@Icons.Material.Filled.Help">
+        <MudNavLink Href="/" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.CloudDownload">Controle Acesso Desktop</MudNavLink>
+        <MudNavLink Href="/" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Support">Tópicos de Ajuda</MudNavLink>
+    </MudNavGroup>
+    <MudNavLink Href="/" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Info">Sobre nós</MudNavLink>
+</MudNavMenu>

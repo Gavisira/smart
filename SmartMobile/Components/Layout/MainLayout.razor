@@ -1,0 +1,53 @@
+﻿@inherits LayoutComponentBase
+
+<MudThemeProvider @bind-IsDarkMode="@_isDarkMode" Theme="SmartPallette" />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+    <MudAppBar class="d-flex">
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+        <MudImage Src="./logo.png" Class="rounded-lg"></MudImage>
+        <MudSpacer />
+        <MudSwitch @bind-Checked="@_isDarkMode" Color="Color.Primary" Class="ma-4" T="bool" Label="@toggleText" />
+    </MudAppBar>
+    <MudDrawer ClipMode="DrawerClipMode.Always" @bind-Open="@_drawerOpen">
+        <NavMenu />
+    </MudDrawer>
+    <MudMainContent>
+        <MudContainer MaxWidth="MaxWidth.ExtraLarge">
+            @Body
+        </MudContainer>
+    </MudMainContent>
+</MudLayout>
+
+@code {
+
+    private bool _isDarkMode;
+    bool _drawerOpen = true;
+    string toggleText { get => $"Modo {(_isDarkMode ? "Claro" : "Escuro")}"; set { toggleText = value; } }
+    MudTheme SmartPallette = new MudTheme()
+        {
+            Palette = new PaletteLight()
+            {
+                Primary = Colors.Green.Lighten1,
+                Secondary = Colors.Green.Accent4,
+                AppbarBackground = Colors.Grey.Darken3,
+            },
+            PaletteDark = new PaletteDark()
+            {
+                Primary = Colors.Green.Lighten1,
+            },
+
+            LayoutProperties = new LayoutProperties()
+            {
+                DrawerWidthLeft = "260px",
+                DrawerWidthRight = "300px"
+            }
+        };
+
+    void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+}

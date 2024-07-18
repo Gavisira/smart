@@ -1,0 +1,123 @@
+﻿@page "/cadastro/usuario"
+@using SmartMobile.Models.Register
+
+<MudGrid>
+    <MudItem sm="12">
+        <MudBreadcrumbs Items="_breadPath" Separator=">"></MudBreadcrumbs>
+    </MudItem>
+</MudGrid>
+<MudGrid>
+    <MudItem sm="6">
+        <MudIconButton Icon="@Icons.Material.Filled.AddCircle"></MudIconButton>
+        <MudIconButton Icon="@Icons.Material.Filled.Search"></MudIconButton>
+        <MudIconButton Icon="@Icons.Material.Filled.FilterAltOff"></MudIconButton>
+    </MudItem>
+    <MudItem sm="2">
+        <MudTextField @bind-Value="@nameFilter" Label="Filtrar por nome" Variant="Variant.Outlined" Margin="Margin.Dense" Style="--mud-typography-body1-size: 10px;" />
+    </MudItem>
+    <MudItem sm="2">
+        <MudTextField @bind-Value="@documentFilter" Label="Filtrar por CPF" Variant="Variant.Outlined" Margin="Margin.Dense" Style="--mud-typography-body1-size: 10px;" />
+    </MudItem>
+    <MudItem sm="2">
+        <MudTextField @bind-Value="@loginFilter" Label="Filtrar por Login" Variant="Variant.Outlined" Margin="Margin.Dense" Style="--mud-typography-body1-size: 10px;" />
+    </MudItem>
+</MudGrid>
+<h3>Consultar usuários cadastrados</h3>
+<MudDataGrid T="RegisterDataGrid" Items="@Elements" ReadOnly="@_readOnly" EditMode="@(_isCellEditMode ? DataGridEditMode.Cell : DataGridEditMode.Form)"
+             StartedEditingItem="@StartedEditingItem" CanceledEditingItem="@CanceledEditingItem" CommittedItemChanges="@CommittedItemChanges"
+             Bordered="true" Dense="true" EditTrigger="@(_editTriggerRowClick ? DataGridEditTrigger.OnRowClick : DataGridEditTrigger.Manual)" SortMode="SortMode.Multiple" Hideable="true">
+    <Columns>
+        <PropertyColumn Property="x => x.Code" Title="Código" />
+        <PropertyColumn Property="x => x.Name" Title="Nome" />
+        <PropertyColumn Property="x => x.Login" />
+        <PropertyColumn Property="x => x.Document" Title="CPF" />
+        <PropertyColumn Property="x => x.Status" />
+        <PropertyColumn Property="x => x.RegisterDate" Title="Data de Cadastro" />
+        <TemplateColumn Hidden="@(_isCellEditMode || _readOnly || _editTriggerRowClick)">
+            <CellTemplate>
+                <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Edit" OnClick="@context.Actions.StartEditingItemAsync" />
+            </CellTemplate>
+        </TemplateColumn>
+        <TemplateColumn Hidden="@(_isCellEditMode || _readOnly || _editTriggerRowClick)">
+            <CellTemplate>
+                <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Delete" OnClick="@(()=>StartedDeleteItem(@context.Item))" />
+            </CellTemplate>
+        </TemplateColumn>
+    </Columns>
+    <PagerContent>
+        <MudDataGridPager T="RegisterDataGrid" PageSizeOptions="new int[]{5,10,20,50,100}" />
+    </PagerContent>
+</MudDataGrid>
+@code {
+
+    private string nameFilter;
+    private string documentFilter;
+    private string loginFilter;
+
+    private List<BreadcrumbItem> _breadPath = new List<BreadcrumbItem>
+    {
+        new BreadcrumbItem("Home", href:"/"),
+        new BreadcrumbItem("Cadastro", href: "/"),
+        new BreadcrumbItem("Usuário", href: null, disabled: true)
+    };
+
+    private List<RegisterDataGrid> Elements = new List<RegisterDataGrid>
+    {
+        new RegisterDataGrid { Code = 1, Name = "João", Login = "joao", Document = "12345678901", Status = "Ativo", RegisterDate = DateTime.Now },
+        new RegisterDataGrid { Code = 2, Name = "Maria", Login = "maria", Document = "12345678902", Status = "Ativo", RegisterDate = DateTime.Now },
+        new RegisterDataGrid { Code = 3, Name = "José", Login = "jose", Document = "12345678903", Status = "Ativo", RegisterDate = DateTime.Now },
+        new RegisterDataGrid { Code = 4, Name = "Ana", Login = "ana", Document = "12345678904", Status = "Ativo", RegisterDate = DateTime.Now },
+        new RegisterDataGrid { Code = 5, Name = "Pedro", Login = "pedro", Document = "12345678905", Status = "Ativo", RegisterDate = DateTime.Now },
+        new RegisterDataGrid { Code = 6, Name = "Paula", Login = "paula", Document = "12345678906", Status = "Ativo", RegisterDate = DateTime.Now },
+        new RegisterDataGrid { Code = 7, Name = "Carlos", Login = "carlos", Document = "12345678907", Status = "Ativo", RegisterDate = DateTime.Now },
+        new RegisterDataGrid { Code = 8, Name = "Marta", Login = "marta", Document = "12345678908", Status = "Ativo", RegisterDate = DateTime.Now },
+        new RegisterDataGrid { Code = 9, Name = "Ricardo", Login = "ricardo", Document = "12345678909", Status = "Ativo", RegisterDate = DateTime.Now },
+        new RegisterDataGrid { Code = 10, Name = "Fernanda", Login = "fernanda", Document = "12345678910", Status = "Ativo", RegisterDate = DateTime.Now },
+        new RegisterDataGrid { Code = 11, Name = "Lucas", Login = "lucas", Document = "12345678911", Status = "Ativo", RegisterDate = DateTime.Now },
+        new RegisterDataGrid { Code = 12, Name = "Juliana", Login = "juliana", Document = "12345678912", Status = "Ativo", RegisterDate = DateTime.Now },
+        new RegisterDataGrid { Code = 13, Name = "Marcos", Login = "marcos", Document = "12345678913", Status = "Ativo", RegisterDate = DateTime.Now },
+        new RegisterDataGrid { Code = 14, Name = "Sandra", Login = "sandra", Document = "12345678914", Status = "Ativo", RegisterDate = DateTime.Now },
+        new RegisterDataGrid { Code = 15, Name = "Roberto", Login = "roberto", Document = "12345678915", Status = "Ativo", RegisterDate = DateTime.Now },
+        new RegisterDataGrid { Code = 16, Name = "Carla", Login = "carla", Document = "12345678916", Status = "Ativo", RegisterDate = DateTime.Now },
+        new RegisterDataGrid { Code = 17, Name = "Rafael", Login = "rafael", Document = "12345678917", Status = "Ativo", RegisterDate = DateTime.Now },
+        new RegisterDataGrid { Code = 18, Name = "Renata", Login = "renata", Document = "12345678918", Status = "Ativo", RegisterDate = DateTime.Now },
+        new RegisterDataGrid { Code = 19, Name = "Gustavo", Login = "gustavo", Document = "12345678919", Status = "Ativo", RegisterDate = DateTime.Now },
+        new RegisterDataGrid { Code = 20, Name = "Tatiana", Login = "tatiana", Document = "12345678920", Status = "Ativo", RegisterDate = DateTime.Now }
+    };
+
+    private bool _readOnly;
+    private bool _isCellEditMode;
+    private List<string> _events = new();
+    private bool _editTriggerRowClick;
+
+    protected override Task OnInitializedAsync()
+    {
+
+
+
+        return base.OnInitializedAsync();
+    }
+
+
+    // events
+    void StartedEditingItem(RegisterDataGrid item)
+    {
+        _events.Insert(0, $"Event = StartedEditingItem, Data = {System.Text.Json.JsonSerializer.Serialize(item)}");
+    }
+
+    void StartedDeleteItem(RegisterDataGrid context)
+    {
+        Elements = Elements.Where(x => x.Code != context.Code).ToList();
+    }
+    void CanceledEditingItem(RegisterDataGrid item)
+    {
+        _events.Insert(0, $"Event = CanceledEditingItem, Data = {System.Text.Json.JsonSerializer.Serialize(item)}");
+    }
+
+    void CommittedItemChanges(RegisterDataGrid item)
+    {
+        _events.Insert(0, $"Event = CommittedItemChanges, Data = {System.Text.Json.JsonSerializer.Serialize(item)}");
+    }
+
+
+}

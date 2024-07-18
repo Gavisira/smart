@@ -1,0 +1,53 @@
+﻿@page "/Record"
+@using System.Net.Http.Json
+@using SmartMobile.Models
+@using Flurl
+@using Flurl.Http
+
+<MudDataGrid Items="@Elements">
+    <Columns>
+        <PropertyColumn Property="x => x.Acao" Title="Tipo de Ação"/>
+        <PropertyColumn Property="x => x.DataHora" Title="Hora"/>
+        <PropertyColumn Property="x => x.Nome" Title="Nome do Aluno"/>
+    </Columns>
+</MudDataGrid>
+
+@code {
+    private IEnumerable<ApiTestModel> Elements = new List<ApiTestModel>();
+
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        List<ApiTestModel> elements = new List<ApiTestModel>()
+        {
+            new()
+            {
+                Acao= "Entrada",
+                DataHora = DateTime.Now.ToString("HH:mm:ss dd/MM/yyyy"),
+                Nome = "João"
+            },
+            new()
+            {
+                Acao= "Saída",
+                DataHora = DateTime.Now.ToString("HH:mm:ss dd/MM/yyyy"),
+                Nome = "Maria"
+            },
+            new()
+            {
+                Acao= "Entrada",
+                DataHora = DateTime.Now.ToString("HH:mm:ss dd/MM/yyyy"),
+                Nome = "José"
+            },
+            new()
+            {
+                Acao= "Saída",
+                DataHora = DateTime.Now.ToString("HH:mm:ss dd/MM/yyyy"),
+                Nome = "Pedro"
+            }
+        };
+
+        Elements = elements;
+        StateHasChanged();
+    }
+}
